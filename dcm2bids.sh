@@ -129,5 +129,7 @@ heudiconv \
   --overwrite \
   --dcmconfig "${CONFIG_FILE}"
 
-# delete the dicom folder
-rm -rf "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm
+# If the corresponding folder exists for this subject, do nothing. Otherwise, move the dicom folder
+# to the 'sourcedata' directory
+if [ ! -d "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm ]; then
+  mv "${ZIP_DIR}"/"${ANIMAL_ID}"_dcm 
